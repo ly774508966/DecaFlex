@@ -84,25 +84,28 @@
     <Compile Include="DecaFlex.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="Descriptors.c">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Descriptors.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="Endpoints.h">
+    <Compile Include="defines.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Pinout.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="USBEvents.c">
+    <Compile Include="USB\Descriptors.c">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="USBImpl.c">
+    <Compile Include="USB\Descriptors.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="USBImpl.h">
+    <Compile Include="USB\Endpoints.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="USB\USBEvents.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="USB\USBImpl.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="USB\USBImpl.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="util.h">
