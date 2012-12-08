@@ -26,7 +26,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	
 	.VendorID				= 0x04D8,
 	.ProductID				= 0xFB92,
-	.ReleaseNumber			= VERSION_BCD(00.04),
+	.ReleaseNumber			= VERSION_BCD(00.05),	// Increment this
 	
 	.ManufacturerStrIndex	= 0x01,
 	.ProductStrIndex		= 0x02,
@@ -50,22 +50,22 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString =
 
 const USB_Descriptor_String_t PROGMEM ProductString =
 {
- .Header                 = {.Size = USB_STRING_LEN(26), .Type = DTYPE_String},
- .UnicodeString          = L"Heracles Motion Controller"
+ .Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
+ .UnicodeString          = L"DecaFlex VR Gloves"
 };
 
 /// Indicates what type of device this is (ProtoStation, Cerberus, etc)
 const USB_Descriptor_String_t PROGMEM ImplementationIDString =
 {
-.Header                 = {.Size = USB_STRING_LEN(22), .Type = DTYPE_String},
-.UnicodeString          = L"Cerberus Monitor Stand"
+.Header                 = {.Size = USB_STRING_LEN(24), .Type = DTYPE_String},
+.UnicodeString          = L"Evolutionary Prototype 1"
 };
 
 /// Unique serial number for the device.
 const USB_Descriptor_String_t PROGMEM DeviceSerialString =
 {
 .Header                 = {.Size = USB_STRING_LEN(36), .Type = DTYPE_String},
-.UnicodeString          = L"66ED7EA6-06D4-4707-BEC9-2BC9B6938B67"
+.UnicodeString          = L"572185B4-F7FD-435D-91B0-F094162B18A6"
 };
 
 

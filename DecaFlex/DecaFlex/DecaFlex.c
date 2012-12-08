@@ -14,20 +14,23 @@
 
 #include "USB/USBImpl.h"
 
+#include "Pinout.h"
+#include "Update.h"
+
 int main(void)
 {
 	
-	// Initialization
-	
-	
-	// Load Mode from Flash
-	
-	
-   // Initialize USB
-   USB_Init();
+	// Enable global interrupts
+	sei();
 
-   // Enable global interrupts
-   sei();
+	// Load Mode from Flash
+
+	// Initialize IO
+	init_pins();
+	
+	// Initialize USB
+	USB_Init();
+
    
    // Main loop
    while(1)

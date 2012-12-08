@@ -1,10 +1,10 @@
 #pragma once
 
-
+#include "Protocol.h"
 
 
 void ServiceUSB(void);
 
 void ProcessVendorControlRequest(void);
 
-void DeleteMe(void);
+void GetVersionInformation(VersionInfo_t* Buffer);

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <avr/io.h>
+
 
 /// "User" LED on PE6
 #define PORT_USER	PORTE
@@ -15,67 +17,56 @@
 
 // Phalanx ADC sensor pins
 
-// Thumb - Proximal (...best way to measure this?)
-#define PORT_THUMB_PROX	PORTF
-#define DDR_THUMB_PROX	DDRF
-#define PIN_THUMB_PROX	PORTF0
+// Thumb - Proximal (...best way to measure this? ...using a flex sensor??)
+// #define DIDR_THUMB_PROX	DIDR0
+// #define PIN_THUMB_PROX	ADC0D
 
 // Thumb - Middle
-#define PORT_THUMB_MID	PORTF
-#define DDR_THUMB_MID	DDRF
-#define PIN_THUMB_MID	PORTF1
+#define DIDR_THUMB_MID	DIDR0
+#define PIN_THUMB_MID	ADC0D
 
 // Thumb - Distal
-#define PORT_THUMB_DIST	PORTF
-#define DDR_THUMB_DIST	DDRF
-#define PIN_THUMB_DIST	PORTF4
+#define DIDR_THUMB_DIST	DIDR0
+#define PIN_THUMB_DIST	ADC1D
 
 // Index - Proximal
-#define PORT_INDEX_PROX	PORTF
-#define DDR_INDEX_PROX DDRF
-#define PIN_INDEX_PROX PORTF5
+#define DIDR_INDEX_PROX DIDR0
+#define PIN_INDEX_PROX ADC4D
 
 // Index - Middle
-#define PORT_INDEX_MID	PORTF
-#define DDR_INDEX_MID	DDRF
-#define PIN_INDEX_MID	PORTF6
+#define DIDR_INDEX_MID	DIDR0
+#define PIN_INDEX_MID	ADC5D
 
 // Index - Distal (estimated)
 
 // Middle - Proximal
-#define PORT_MIDDLE_PROX	PORTF
-#define DDR_MIDDLE_PROX DDRF
-#define PIN_MIDDLE_PROX PORTF7
+#define DIDR_MIDDLE_PROX DIDR0
+#define PIN_MIDDLE_PROX ADC6D
 
 // Middle - Middle
-#define PORT_MIDDLE_MID	PORTD
-#define DDR_MIDDLE_MID	DDRD
-#define PIN_MIDDLE_MID	PORTD4
+#define DIDR_MIDDLE_MID	DIDR0
+#define PIN_MIDDLE_MID	ADC7D
 
 // Middle - Distal (estimated)
 
 
 // Ring - Proximal
-#define PORT_RING_PROX	PORTD
-#define DDR_RING_PROX DDRD
-#define PIN_RING_PROX PORTD6
+#define DIDR_RING_PROX DIDR2
+#define PIN_RING_PROX ADC8D
 
 // Ring - Middle
-#define PORT_RING_MID	PORTD
-#define DDR_RING_MID	DDRD
-#define PIN_RING_MID	PORTD7
+#define DIDR_RING_MID	DIDR2
+#define PIN_RING_MID	ADC9D
 
 // Ring - Distal (estimated)
 
 // Pinky - Proximal
-#define PORT_PINKY_PROX	PORTB
-#define DDR_PINKY_PROX DDRB
-#define PIN_PINKY_PROX PORTB4
+#define DIDR_PINKY_PROX DIDR2
+#define PIN_PINKY_PROX ADC10D
 
 // Pinky - Middle
-#define PORT_PINKY_MID	PORTB
-#define DDR_PINKY_MID	DDRB
-#define PIN_PINKY_MID	PORTB5
+#define DIDR_PINKY_MID	DIDR2
+#define PIN_PINKY_MID	ADC11D
 
 // Pinky - Distal (estimated)
 
@@ -89,3 +80,8 @@
 #define PIN_MODEBTN		PORTE2
 
 // TWI - 12ch TrimDAC
+
+/// Initialization Function
+void init_pins();
+
+

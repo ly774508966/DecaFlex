@@ -6,10 +6,9 @@
  */ 
 #include <stdbool.h>
 
-#include "global.h"
+#include "util.h"
 #include "Endpoints.h"
 #include "USBImpl.h"
-#include "LCD/avrslcd.h"
 
 void EVENT_USB_Device_Connect(void)
 {
@@ -61,14 +60,8 @@ void EVENT_USB_Device_ConfigurationChanged(void)
 	// Configure the control endpoint
 	// success &= Endpoint_ConfigureEndpoint(COMMAND_EPNUM, EP_TYPE_CONTROL, COMMAND_EPSIZE, 1);
 	
-	// Configure the bulk in endpoint
-	success &= Endpoint_ConfigureEndpoint(ENDPOINT_DIR_OUT | BULK_OUT_EPNUM, EP_TYPE_BULK, BULK_OUT_EPSIZE, 1);
-	
-	// Configure the bulk OUT endpoint
-	success &= Endpoint_ConfigureEndpoint(ENDPOINT_DIR_IN | BULK_IN_EPNUM, EP_TYPE_BULK, BULK_IN_EPSIZE, 1);
-	
 	// Configure the interrupt OUT endpoint
-	success &= Endpoint_ConfigureEndpoint(INTERRUPT_OUT_EPNUM, EP_TYPE_INTERRUPT, INTERRUPT_OUT_EPSIZE, 1);
+//	success &= Endpoint_ConfigureEndpoint(INTERRUPT_OUT_EPNUM, EP_TYPE_INTERRUPT, INTERRUPT_OUT_EPSIZE, 1);
 	
 	// Configure the interrupt IN endpoint
 	success &= Endpoint_ConfigureEndpoint(ENDPOINT_DIR_IN | INTERRUPT_IN_EPNUM, EP_TYPE_INTERRUPT, INTERRUPT_IN_EPSIZE, 1);

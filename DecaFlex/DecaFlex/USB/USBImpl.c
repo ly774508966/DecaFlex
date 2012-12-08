@@ -8,21 +8,14 @@
 #include <string.h>
 #include <stdint.h>
 #include "USBImpl.h"
-#include "USBCommand.h"
+#include "Protocol.h"
 #include "Endpoints.h"
-
-#include "global.h"
-#include "LCD/avrslcd.h"
+#include "Update.h"
+#include "util.h"
 #include <stddef.h>
 
-static bool returnFire = false;
-static uint8_t delayed = 0;
 
-char BulkBuffer[32];
-uint16_t BulkBufferData = 0;
-
-char IsoBuffer[8];
-uint16_t IsoBufferData = 0;
+OperatingModes_t operatingMode = MODE_RAW;
 
 /// Performs USB endpoint tasks.
 void ServiceUSB(void)
@@ -35,35 +28,13 @@ void ServiceUSB(void)
 	uint8_t PrevEndpoint = Endpoint_GetCurrentEndpoint();
 	
 	// Check for interrupts
+	/*
 	Endpoint_SelectEndpoint(INTERRUPT_OUT_EPNUM);
 		
 	if(Endpoint_IsOUTReceived())
 	{
-		
-		
-		if (ESTOP_isActive())
-		{
-		
-		
-			// JTAG Mode
-			if (JTAG_isEnabled())
-			{
-			
-				// Receive JTAG Command
 				
-				
-				// Dispatch command
-				
-			
-			}
 		
-		
-		
-		}
-		else
-		{
-			
-			
 			unsigned char interruptData[16];
 			memset(interruptData, '\0', 16);
 			
@@ -81,116 +52,65 @@ void ServiceUSB(void)
 			printf("%s", interruptData);
 			
 			returnFire = true;
-		}		
+				
 	}
+	
+	*/
 
 	
 	Endpoint_SelectEndpoint(INTERRUPT_IN_EPNUM);
 	
 	// Test interrupt function
-	if(!Endpoint_IsConfigured() || !Endpoint_IsEnabled())
-	{
-		FatalError("Endpoint 2 not configured (interrupt in).");
-	}
+	if(Endpoint_IsConfigured() && Endpoint_IsEnabled())
+	{	
 	
-	
-	// Send return interrupt.
-	// if (Endpoint_WaitUntilReady() == ENDPOINT_READYWAIT_NoError)		// Causes a spin-wait!
-	if (Endpoint_IsINReady())
-	{			
+		// Send return interrupt.
+		// if (Endpoint_WaitUntilReady() == ENDPOINT_READYWAIT_NoError)		// Causes a spin-wait!
+		if (Endpoint_IsINReady())
+		{			
 			
-		if (!returnFire || (delayed < 2))
-		{
-			if(returnFire)
-				delayed++;
-								
-			// No interrupt pending
-			//	Endpoint_ClearIN();		// Omitting this could lead to a timeout, eventually.
-			Endpoint_AbortPendingIN();	// NAK a few times, just to prove that it's okay.
-		}
-		else
-		{
+			if (operatingMode == MODE_RAW)
+			{
 				
-			// Process outgoing interrupt packet.
-			
-			// Prepare/get data structure to write
-			
+				// No data ready to go.
+				if (!updateReady())
+				{				
+					// No interrupt pending
+					//	Endpoint_ClearIN();		// Omitting this could lead to a timeout, eventually.
+					Endpoint_AbortPendingIN();	// NAK a few times, just to prove that it's okay.
+				}					
+				else
+				{	
 				
-			// Write data
-			wchar_t Buffer[6] = L"PONG!";
-			Endpoint_Write_Stream_LE(Buffer, 12, NULL);
+					// Prepare an update message
+					DECAFLEX_RAWUpdate_EP1_t Update;
 				
-			// Acknowledge the packet
-			Endpoint_ClearIN();
-
-			avrslcd_Clear();
-			printf("Delayed %dx", delayed);
-
-			returnFire = false;
-			delayed = 0;
+					performUpdate(&Update);
 				
-		}
-	}
-		
-	
-	// Check for bulk data
-	Endpoint_SelectEndpoint(BULK_OUT_EPNUM);
-	if(Endpoint_IsOUTReceived())
-	{
-		// Process incoming bulk data packet.
-		
-		memset(BulkBuffer, '\0', sizeof(BulkBuffer));
-		
-		
-		Endpoint_Read_Stream_LE(BulkBuffer, sizeof(BulkBuffer), &BulkBufferData);
-		
-		// Acknowledge the packet
-		if (!Endpoint_IsReadWriteAllowed())
-		{
-			// ACK
-			Endpoint_ClearOUT();
+					// Send update/state data to the host.
+					Endpoint_Write_Stream_LE(&Update, sizeof(DECAFLEX_RAWUpdate_EP1_t), NULL);
+				
+					// Acknowledge the packet
+					Endpoint_ClearIN();
+				}				
+				
+			}
 		}
 		
-		avrslcd_Clear();
-		printf("%s", BulkBuffer);
-		avrslcd_MoveCursor(2,1);
-		
-		
-		//Reverse the data
-		for (int i = 0; i < ((BulkBufferData-1)/2); i++)
-		{
-			char temp = BulkBuffer[i];
-			BulkBuffer[i] = BulkBuffer[BulkBufferData - (i+2)];
-			BulkBuffer[BulkBufferData - (i+2)] = temp;
-		}
-	
-	}	
-	
-	// Bulk data out
-	Endpoint_SelectEndpoint(BULK_IN_EPNUM);
-	
-	// Test bulk function
-	if(!Endpoint_IsConfigured() || !Endpoint_IsEnabled() || Endpoint_IsStalled())
-	{
-		FatalError("Endpoint not configured (bulk in).");
-	}
-	
-	if (Endpoint_IsINReady())
-	{
-		uint16_t bytesProcessed = 0;
-		// Send back some data
-		Endpoint_Write_Stream_LE(BulkBuffer, BulkBufferData, &bytesProcessed);
-		
-		Endpoint_ClearIN();
-	
-		
-		avrslcd_MoveCursor(2,1);
-		printf("%s", BulkBuffer);
-		
-	}	
-			
+	}			
 	// Restore endpoint
 	Endpoint_SelectEndpoint(PrevEndpoint);
+}
+
+void GetVersionInformation( VersionInfo_t* Buffer ) 
+{
+	
+	Buffer->FirmwareMajor = 0;
+	Buffer->FirmwareMinor = 1;
+	
+	Buffer->HardwareMajor = 0;
+	Buffer->HardwareMinor = 0;
+	
 }
 
 void ProcessVendorControlRequest()
@@ -200,17 +120,17 @@ void ProcessVendorControlRequest()
 	switch(USB_ControlRequest.bRequest)
 	{
 		
-		case COMMAND_Version:
+		case VER_INFO:
 		{
 			
 			Endpoint_ClearSETUP();	// ACK SETUP Packet.
 			
 			// Prepare Version Packet
-			VersionCommand_t Buffer;
+			VersionInfo_t Buffer;
 			GetVersionInformation(&Buffer);
 			
 			// Send version data to host
-			Endpoint_Write_Control_Stream_LE(Buffer, sizeof(VersionCommand_t));
+			Endpoint_Write_Control_Stream_LE(&Buffer, sizeof(VersionInfo_t));
 			Endpoint_ClearOUT();
 			
 			
@@ -218,10 +138,10 @@ void ProcessVendorControlRequest()
 		break;
 		
 		
-		case COMMAND_ESTOP:
+		case RAW_MODE:
 		{
-			// Act on the command without delay.
-			ESTOP_Set();
+			// Switch to RAW Mode
+			
 			
 			// Acknowledge the operation.
 			Endpoint_ClearSETUP();	// ACK SETUP Packet.
@@ -229,7 +149,20 @@ void ProcessVendorControlRequest()
 			
 		}			
 		break;
-					
+			
+		case HID_MODE:
+		{
+			// Switch to HID mode
+			
+			
+			// Acknowledge the operation.
+			Endpoint_ClearSETUP();	// ACK SETUP Packet.
+			Endpoint_ClearStatusStage();
+			
+		}
+		break;
+		
+	/*	Temporairly leaving in this commented code so that I don't have to dig through LUFA documentation to re-figure all this out.		
 		case COMMAND_JTAG:
 		{
 			
@@ -272,7 +205,7 @@ void ProcessVendorControlRequest()
 			
 		}
 		break;
-	/*		
+			
 		case COMMAND_Reset:
 		{	
 			Endpoint_ClearSETUP();	// ACK SETUP Packet.
@@ -306,8 +239,7 @@ void ProcessVendorControlRequest()
 		break;
 	*/
 		default:
-			avrslcd_MoveCursor(2,1);
-			printf("Unknown Command");
+			
 		break;
 	}
 	

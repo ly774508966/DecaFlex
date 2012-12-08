@@ -20,6 +20,7 @@
     <OverrideVtor>false</OverrideVtor>
     <OverrideVtorValue />
     <eraseonlaunchrule>0</eraseonlaunchrule>
+    <AsfVersion>2.11.1</AsfVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <ToolchainSettings>
@@ -60,22 +61,31 @@
       <Value>BOOTLOADER_SEC_SIZE_BYTES=32768</Value>
       <Value>USB_DEVICE_ONLY</Value>
       <Value>NO_STREAM_CALLBACKS</Value>
+      <Value>INTERRUPT_CONTROL_ENDPOINT</Value>
       <Value>USE_FLASH_DESCRIPTORS</Value>
       <Value>USE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_AUTO_PLL)"</Value>
       <Value>FIXED_CONTROL_ENDPOINT_SIZE=32</Value>
       <Value>FIXED_NUM_CONFIGURATIONS=1</Value>
     </ListValues>
   </avrgcc.compiler.symbols.DefSymbols>
+  <avrgcc.compiler.directories.IncludePaths>
+    <ListValues>
+      <Value>..</Value>
+    </ListValues>
+  </avrgcc.compiler.directories.IncludePaths>
   <avrgcc.compiler.optimization.level>Optimize (-O1)</avrgcc.compiler.optimization.level>
+  <avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>True</avrgcc.compiler.optimization.PrepareFunctionsForGarbageCollection>
   <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
   <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
   <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
   <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+  <avrgcc.compiler.warnings.WarningsAsErrors>True</avrgcc.compiler.warnings.WarningsAsErrors>
   <avrgcc.linker.libraries.Libraries>
     <ListValues>
       <Value>m</Value>
     </ListValues>
   </avrgcc.linker.libraries.Libraries>
+  <avrgcc.linker.optimization.GarbageCollectUnusedSections>True</avrgcc.linker.optimization.GarbageCollectUnusedSections>
   <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
 </AvrGcc>
     </ToolchainSettings>
@@ -88,6 +98,15 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="Pinout.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Protocol.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Update.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Update.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="USB\Descriptors.c">
