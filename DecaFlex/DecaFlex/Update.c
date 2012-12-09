@@ -19,29 +19,29 @@ DECAFLEX_RAWUpdate_EP1_t state;
 	// Configure output pins
 	
 		// User LED
-		bit_set(DDR_USER, PIN_USER);
+		bit_set(DDR_USER, BIT(PIN_USER));
 	
 	// Configure input pins
 	
 		// Mode button
-		bit_clear(DDR_MODEBTN, PIN_MODEBTN);
+		bit_clear(DDR_MODEBTN, BIT(PIN_MODEBTN));
 		
 	// Configure ADC input pins
 	
-		bit_set(DIDR_THUMB_MID, PIN_THUMB_MID);
-		bit_set(DIDR_THUMB_DIST, PIN_THUMB_DIST);
+		bit_set(DIDR_THUMB_MID, BIT(PIN_THUMB_MID));
+		bit_set(DIDR_THUMB_DIST, BIT(PIN_THUMB_DIST));
 		
-		bit_set(DIDR_INDEX_MID, PIN_INDEX_MID);
-		bit_set(DIDR_INDEX_PROX, PIN_INDEX_PROX);
+// 		bit_set(DIDR_INDEX_MID, PIN_INDEX_MID);
+// 		bit_set(DIDR_INDEX_PROX, PIN_INDEX_PROX);
+// 		
+// 		bit_set(DIDR_MIDDLE_MID, PIN_MIDDLE_MID);
+// 		bit_set(DIDR_MIDDLE_PROX, PIN_MIDDLE_PROX);
+// 		
+// 		bit_set(DIDR_RING_MID, PIN_RING_MID);
+// 		bit_set(DIDR_RING_PROX, PIN_RING_PROX);
 		
-		bit_set(DIDR_MIDDLE_MID, PIN_MIDDLE_MID);
-		bit_set(DIDR_MIDDLE_PROX, PIN_MIDDLE_PROX);
-		
-		bit_set(DIDR_RING_MID, PIN_RING_MID);
-		bit_set(DIDR_RING_PROX, PIN_RING_PROX);
-		
-		bit_set(DIDR_PINKY_MID, PIN_PINKY_MID);
-		bit_set(DIDR_PINKY_PROX, PIN_PINKY_PROX);
+		bit_set(DIDR_PINKY_MID, BIT(PIN_PINKY_MID));
+		bit_set(DIDR_PINKY_PROX, BIT(PIN_PINKY_PROX));
 	
 	/// Initialize ADC
 	
@@ -87,102 +87,102 @@ ISR(ADC_vect)
 	case 1:		// Thumb - Distal
 		state.Thumb_Distal = (ADCH << 8)|ADCL;
 		
-		currentADC = 4;
-		bit_clear(ADMUX, BIT(MUX0));
-		bit_clear(ADMUX, BIT(MUX1));
-		bit_set(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_clear(ADCSRB, BIT(MUX5));
-		break;
-	case 4:		// Index - Proximal
-		
-		state.Index_Proximal = (ADCH << 8)|ADCL;
-		
-		currentADC = 5;
-		bit_set(ADMUX, BIT(MUX0));
-		bit_clear(ADMUX, BIT(MUX1));
-		bit_set(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_clear(ADCSRB, BIT(MUX5));
-		break;
-	case 5:		// Index - Middle
-		
-		state.Index_Middle = (ADCH << 8)|ADCL;
-		
-		currentADC = 6;
-		bit_clear(ADMUX, BIT(MUX0));
-		bit_set(ADMUX, BIT(MUX1));
-		bit_set(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_clear(ADCSRB, BIT(MUX5));
-		break;
-	case 6:		// Middle - Proximal
-	
-		state.Middle_Proximal = (ADCH << 8)|ADCL;
-	
-		currentADC = 7;
-		bit_set(ADMUX, BIT(MUX0));
-		bit_set(ADMUX, BIT(MUX1));
-		bit_set(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_clear(ADCSRB, BIT(MUX5));
-		break;
-	case 7:		// Middle - Middle
-	
-		state.Middle_Middle = (ADCH << 8)|ADCL;
-		
-		currentADC = 8;
-		bit_clear(ADMUX, BIT(MUX0));
-		bit_clear(ADMUX, BIT(MUX1));
-		bit_clear(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_set(ADCSRB, BIT(MUX5));
-		break;
-	case 8:		// Ring - Proximal
-	
-		state.Ring_Proximal = (ADCH << 8)|ADCL;
-	
-		currentADC = 9;
-		bit_set(ADMUX, BIT(MUX0));
-		bit_clear(ADMUX, BIT(MUX1));
-		bit_clear(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_set(ADCSRB, BIT(MUX5));
-		break;
-	case 9:		// Ring - Middle
-	
-		state.Ring_Middle = (ADCH << 8)|ADCL;
-	
-		currentADC = 10;
-		bit_clear(ADMUX, BIT(MUX0));
-		bit_set(ADMUX, BIT(MUX1));
-		bit_clear(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_set(ADCSRB, BIT(MUX5));
-		break;
-	case 10:	// Pinky - Proximal
-		
-		state.Pinky_Proximal = (ADCH << 8)|ADCL;
-	
-		currentADC = 11;
-		bit_set(ADMUX, BIT(MUX0));
-		bit_set(ADMUX, BIT(MUX1));
-		bit_clear(ADMUX, BIT(MUX2));
-		bit_clear(ADMUX, BIT(MUX3));
-		bit_clear(ADMUX, BIT(MUX4));
-		bit_set(ADCSRB, BIT(MUX5));
-		break;
-
-	case 11:	// Pinky - Middle (Go back to 0/default)
-	
-		state.Pinky_Middle = (ADCH << 8)|ADCL;
+// 		currentADC = 4;
+// 		bit_clear(ADMUX, BIT(MUX0));
+// 		bit_clear(ADMUX, BIT(MUX1));
+// 		bit_set(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_clear(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 4:		// Index - Proximal
+// 		
+// 		state.Index_Proximal = (ADCH << 8)|ADCL;
+// 		
+// 		currentADC = 5;
+// 		bit_set(ADMUX, BIT(MUX0));
+// 		bit_clear(ADMUX, BIT(MUX1));
+// 		bit_set(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_clear(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 5:		// Index - Middle
+// 		
+// 		state.Index_Middle = (ADCH << 8)|ADCL;
+// 		
+// 		currentADC = 6;
+// 		bit_clear(ADMUX, BIT(MUX0));
+// 		bit_set(ADMUX, BIT(MUX1));
+// 		bit_set(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_clear(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 6:		// Middle - Proximal
+// 	
+// 		state.Middle_Proximal = (ADCH << 8)|ADCL;
+// 	
+// 		currentADC = 7;
+// 		bit_set(ADMUX, BIT(MUX0));
+// 		bit_set(ADMUX, BIT(MUX1));
+// 		bit_set(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_clear(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 7:		// Middle - Middle
+// 	
+// 		state.Middle_Middle = (ADCH << 8)|ADCL;
+// 		
+// 		currentADC = 8;
+// 		bit_clear(ADMUX, BIT(MUX0));
+// 		bit_clear(ADMUX, BIT(MUX1));
+// 		bit_clear(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_set(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 8:		// Ring - Proximal
+// 	
+// 		state.Ring_Proximal = (ADCH << 8)|ADCL;
+// 	
+// 		currentADC = 9;
+// 		bit_set(ADMUX, BIT(MUX0));
+// 		bit_clear(ADMUX, BIT(MUX1));
+// 		bit_clear(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_set(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 9:		// Ring - Middle
+// 	
+// 		state.Ring_Middle = (ADCH << 8)|ADCL;
+// 	
+// 		currentADC = 10;
+// 		bit_clear(ADMUX, BIT(MUX0));
+// 		bit_set(ADMUX, BIT(MUX1));
+// 		bit_clear(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_set(ADCSRB, BIT(MUX5));
+// 		break;
+// 	case 10:	// Pinky - Proximal
+// 		
+// 		state.Pinky_Proximal = (ADCH << 8)|ADCL;
+// 	
+// 		currentADC = 11;
+// 		bit_set(ADMUX, BIT(MUX0));
+// 		bit_set(ADMUX, BIT(MUX1));
+// 		bit_clear(ADMUX, BIT(MUX2));
+// 		bit_clear(ADMUX, BIT(MUX3));
+// 		bit_clear(ADMUX, BIT(MUX4));
+// 		bit_set(ADCSRB, BIT(MUX5));
+// 		break;
+// 
+// 	case 11:	// Pinky - Middle (Go back to 0/default)
+// 	
+// 		state.Pinky_Middle = (ADCH << 8)|ADCL;
 		
 	default:
 		currentADC = 0;

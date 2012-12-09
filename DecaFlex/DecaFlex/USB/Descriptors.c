@@ -22,7 +22,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		.ConfigurationNumber    = 1,
 		.ConfigurationStrIndex  = NO_DESCRIPTOR,
 
-		.ConfigAttributes       = USB_CONFIG_ATTR_RESERVED|USB_CONFIG_ATTR_SELFPOWERED|USB_CONFIG_ATTR_REMOTEWAKEUP,
+		.ConfigAttributes       = USB_CONFIG_ATTR_RESERVED|USB_CONFIG_ATTR_REMOTEWAKEUP,
 
 		.MaxPowerConsumption    = USB_CONFIG_POWER_MA(100)
 	},
@@ -33,7 +33,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 
 		.InterfaceNumber        = 0,
 		.AlternateSetting       = 0,
-		.TotalEndpoints         = 6,
+		.TotalEndpoints         = 1,
 
 		.Class                  = 0xFF,
 		.SubClass               = 0xAA,

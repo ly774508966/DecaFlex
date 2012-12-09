@@ -16,12 +16,16 @@
 
 #include "Pinout.h"
 #include "Update.h"
+#include "util.h"
+
 
 int main(void)
 {
 	
-	// Enable global interrupts
-	sei();
+	
+	bit_set(DDRB, PORTB0);
+	bit_clear(PORTB, PORTB0);
+	
 
 	// Load Mode from Flash
 
@@ -31,12 +35,17 @@ int main(void)
 	// Initialize USB
 	USB_Init();
 
+	// Enable global interrupts
+	sei();
    
    // Main loop
    while(1)
    {
 	   
-	   ServiceUSB();
+
+		bit_write((USB_DeviceState == DEVICE_STATE_Configured), PORT_USER, BIT(PIN_USER));
+
+		ServiceUSB();
 	   
    }
 }

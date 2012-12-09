@@ -25,8 +25,8 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 	.Endpoint0Size			= FIXED_CONTROL_ENDPOINT_SIZE,
 	
 	.VendorID				= 0x04D8,
-	.ProductID				= 0xFB92,
-	.ReleaseNumber			= VERSION_BCD(00.05),	// Increment this
+	.ProductID				= 0xFB93,
+	.ReleaseNumber			= VERSION_BCD(00.01),	// Increment this
 	
 	.ManufacturerStrIndex	= 0x01,
 	.ProductStrIndex		= 0x02,
@@ -52,13 +52,6 @@ const USB_Descriptor_String_t PROGMEM ProductString =
 {
  .Header                 = {.Size = USB_STRING_LEN(18), .Type = DTYPE_String},
  .UnicodeString          = L"DecaFlex VR Gloves"
-};
-
-/// Indicates what type of device this is (ProtoStation, Cerberus, etc)
-const USB_Descriptor_String_t PROGMEM ImplementationIDString =
-{
-.Header                 = {.Size = USB_STRING_LEN(24), .Type = DTYPE_String},
-.UnicodeString          = L"Evolutionary Prototype 1"
 };
 
 /// Unique serial number for the device.
