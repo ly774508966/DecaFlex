@@ -60,7 +60,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 		.EndpointAddress        = (ENDPOINT_DIR_IN | INTERRUPT_IN_EPNUM),
 		.Attributes             = EP_TYPE_INTERRUPT,
 		.EndpointSize           = INTERRUPT_IN_EPSIZE,
-		.PollingIntervalMS      = 0x32
+		.PollingIntervalMS      = 0x2
 	},
 	
 

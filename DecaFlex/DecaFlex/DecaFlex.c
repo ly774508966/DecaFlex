@@ -43,7 +43,7 @@ int main(void)
    {
 	   
 
-		bit_write((USB_DeviceState == DEVICE_STATE_Configured), PORT_USER, BIT(PIN_USER));
+//		bit_write((USB_DeviceState == DEVICE_STATE_Configured), PORT_USER, BIT(PIN_USER));
 
 		ServiceUSB();
 	   

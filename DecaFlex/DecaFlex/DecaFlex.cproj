@@ -21,7 +21,7 @@
     <OverrideVtorValue />
     <eraseonlaunchrule>0</eraseonlaunchrule>
     <AsfVersion>2.11.1</AsfVersion>
-    <avrtoolinterface>JTAG</avrtoolinterface>
+    <avrtoolinterface>ISP</avrtoolinterface>
     <avrtool>com.atmel.avrdbg.tool.jtagicemkii</avrtool>
     <com_atmel_avrdbg_tool_jtagicemkii>
       <ToolType>com.atmel.avrdbg.tool.jtagicemkii</ToolType>
@@ -33,13 +33,13 @@
       </OverrideVtorValue>
       <Channel>
         <host>127.0.0.1</host>
-        <port>55176</port>
+        <port>51277</port>
         <ssl>False</ssl>
       </Channel>
       <ToolOptions>
-        <InterfaceName>JTAG</InterfaceName>
+        <InterfaceName>ISP</InterfaceName>
         <InterfaceProperties>
-          <JtagDbgClock>2000000</JtagDbgClock>
+          <JtagDbgClock>0</JtagDbgClock>
           <JtagProgClock>1000000</JtagProgClock>
           <IspClock>4000000</IspClock>
           <JtagInChain>false</JtagInChain>
@@ -121,6 +121,12 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Gesture.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="Gesture.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="LUFA\Common\Architectures.h">
       <SubType>compile</SubType>
     </Compile>

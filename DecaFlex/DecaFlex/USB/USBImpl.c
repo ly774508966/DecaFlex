@@ -12,6 +12,7 @@
 #include "Endpoints.h"
 #include "Update.h"
 #include "util.h"
+#include "Pinout.h"
 #include <stddef.h>
 
 
@@ -92,6 +93,8 @@ void ServiceUSB(void)
 				
 					// Acknowledge the packet
 					Endpoint_ClearIN();
+					
+					
 				}				
 				
 			}
@@ -141,7 +144,7 @@ void ProcessVendorControlRequest()
 		case RAW_MODE:
 		{
 			// Switch to RAW Mode
-			
+			bit_set(PORT_USER, BIT(PIN_USER));
 			
 			// Acknowledge the operation.
 			Endpoint_ClearSETUP();	// ACK SETUP Packet.
@@ -153,7 +156,7 @@ void ProcessVendorControlRequest()
 		case HID_MODE:
 		{
 			// Switch to HID mode
-			
+			bit_set(PORT_USER, BIT(PIN_USER));
 			
 			// Acknowledge the operation.
 			Endpoint_ClearSETUP();	// ACK SETUP Packet.
@@ -162,7 +165,7 @@ void ProcessVendorControlRequest()
 		}
 		break;
 		
-	/*	Temporairly leaving in this commented code so that I don't have to dig through LUFA documentation to re-figure all this out.		
+	/*	Temporarily leaving in this commented code so that I don't have to dig through LUFA documentation to re-figure all this out.		
 		case COMMAND_JTAG:
 		{
 			

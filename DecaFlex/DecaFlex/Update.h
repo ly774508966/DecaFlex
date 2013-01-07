@@ -19,6 +19,7 @@ bool updateReady();
 
 void performUpdate(DECAFLEX_RAWUpdate_EP1_t* pState);
 
+void updateOrientation();
 
 
 #endif /* UPDATE_H_ */
