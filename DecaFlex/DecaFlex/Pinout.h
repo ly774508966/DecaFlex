@@ -84,4 +84,8 @@
 /// Initialization Function
 void init_pins();
 
+/// Output normalization (EP1 specific)
+uint16_t setRange(uint16_t input, uint16_t* min, uint16_t* max, uint16_t rangeMin, uint16_t rangeMax);
+
+uint16_t filter(uint8_t filterIndex, uint16_t s);
 

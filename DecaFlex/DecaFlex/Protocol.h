@@ -32,8 +32,8 @@ typedef struct
 		uint16_t Gyro_Z;
 		
 		// Flex Sensors - Phalanges 
-		uint16_t Thumb_Proximal;	// Later prototypes will provide more proximal data.
-		uint16_t Thumb_Middle;
+		uint16_t Thumb_Meta;	// Later prototypes will provide more proximal data.
+		uint16_t Thumb_Proximal;
 		uint16_t Thumb_Distal;		// Distal is estimated in this prototype
 		
 		uint16_t Index_Proximal;
@@ -51,6 +51,12 @@ typedef struct
 		uint16_t Pinky_Proximal;
 		uint16_t Pinky_Middle;
 		uint16_t Pinky_Distal;		// Distal is estimated in this prototype
+		
+		
+		uint8_t Dummy;
+		uint8_t DummyB;
+		uint8_t DummyC;
+		
 	
 	} DECAFLEX_RAWUpdate_EP1_t;
 

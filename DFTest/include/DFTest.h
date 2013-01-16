@@ -80,7 +80,7 @@ protected:
 	void setupHand(HandBones & handStruct, Ogre::SkeletonInstance* pSkeleton);
 
 private:
-
+	
 	DecaFlex DFDevice;
 	OgreBites::TextBox* pTextBox;
 	SkeletonDebug* pSkeletonDebug;

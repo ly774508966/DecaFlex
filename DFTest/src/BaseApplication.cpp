@@ -112,6 +112,10 @@ void BaseApplication::createFrameListener(void)
     mWindow->getCustomAttribute("WINDOW", &windowHnd);
     windowHndStr << windowHnd;
     pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
+	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_FOREGROUND" )));
+	pl.insert(std::make_pair(std::string("w32_mouse"), std::string("DISCL_NONEXCLUSIVE")));
+	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_FOREGROUND")));
+	pl.insert(std::make_pair(std::string("w32_keyboard"), std::string("DISCL_NONEXCLUSIVE")));
 
     mInputManager = OIS::InputManager::createInputSystem( pl );
 
@@ -134,18 +138,8 @@ void BaseApplication::createFrameListener(void)
 
     // create a params panel for displaying sample details
     Ogre::StringVector items;
-    items.push_back("Seq ID");
-    items.push_back("Battery");
-    items.push_back("Accel X");
-	items.push_back("Accel Y");
-	items.push_back("Accel Z");
-    items.push_back("");
-    items.push_back("Gyro X");
-    items.push_back("Gyro Y");
-    items.push_back("Gyro Z");
-    items.push_back("");
+    items.push_back("Thumb_Meta");
     items.push_back("Thumb_Proximal");
-    items.push_back("Thumb_Middle");
 	items.push_back("Thumb_Distal");
 	items.push_back("Index_Proximal");
 	items.push_back("Index_Middle");
@@ -405,8 +399,8 @@ bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 
 bool BaseApplication::mouseMoved( const OIS::MouseEvent &arg )
 {
-    if (mTrayMgr->injectMouseMove(arg)) return true;
-    mCameraMan->injectMouseMove(arg);
+//	if (mTrayMgr->injectMouseMove(arg)) return true;
+//    mCameraMan->injectMouseMove(arg);
     return true;
 }
 

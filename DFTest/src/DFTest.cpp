@@ -141,60 +141,70 @@ void DFTest::update()
 
 		// Pinky_Meta
 		// Pinky_Proximal
+		mRightHand.Pinky_Proximal->setOrientation(1, -(float)DFDevice.LeftGlove().Pinky_Proximal/128.0f,0,0);
 		// Pinky_Middle
+		mRightHand.Pinky_Middle->setOrientation(1, -(float)DFDevice.LeftGlove().Pinky_Middle/128.0f,0,0);
 		// Pinky_Distal
+		mRightHand.Pinky_Distal->setOrientation(1, -(float)DFDevice.LeftGlove().Pinky_Distal/128.0f,0,0);
 
 		// Ring_Meta
+
 		// Ring_Proximal
+		mRightHand.Ring_Proximal->setOrientation(1, -(float)DFDevice.LeftGlove().Ring_Proximal/128.0f,0,0);
 		// Ring_Middle
+		mRightHand.Ring_Middle->setOrientation(1, -(float)DFDevice.LeftGlove().Ring_Middle/128.0f,0,0);
 		// Ring_Distal
+		mRightHand.Ring_Distal->setOrientation(1, -(float)DFDevice.LeftGlove().Ring_Distal/128.0f,0,0);
 
 		// Middle_Meta
 		// Middle_Proximal
+		mRightHand.Middle_Proximal->setOrientation(1, -(float)DFDevice.LeftGlove().Middle_Proximal/128.0f,0,0);
 		// Middle_Middle
+		mRightHand.Middle_Middle->setOrientation(1, -(float)DFDevice.LeftGlove().Middle_Middle/128.0f,0,0);
 		// Middle_Distal
+		mRightHand.Middle_Distal->setOrientation(1, -(float)DFDevice.LeftGlove().Middle_Distal/128.0f, 0,0);
 
 		// Index_Meta
-		mRightHand.Index_Proximal->rotate(Ogre::Vector3::UNIT_X, Ogre::Degree(20));	// Index_Proximal	
+		
+		// Index_Proximal	
+		mRightHand.Index_Proximal->setOrientation(1,-(float)DFDevice.LeftGlove().Index_Proximal/128.0f,0,0);	// Index_Proximal
 		// Index_Middle
+		mRightHand.Index_Middle->setOrientation(1, -(float)DFDevice.LeftGlove().Index_Middle/128.0f,0,0);
 		// Index_Distal
+		mRightHand.Index_Distal->setOrientation(1, -(float)DFDevice.LeftGlove().Index_Distal/128.0f,0,0);
 
 		// Thumb_Meta
+		// mRightHand.Thumb_Meta->setOrientation(1, 0,0, -(float)DFDevice.LeftGlove().Thumb_Proximal/128.0f);
 		// Thumb_Proximal
-		// Index_Middle
-		// Index_Distal
+		mRightHand.Thumb_Proximal->setOrientation(1, -(float)DFDevice.LeftGlove().Thumb_Proximal/128.0f,0,0);
+		// Thumb_Distal
+		mRightHand.Thumb_Distal->setOrientation(1, -(float)DFDevice.LeftGlove().Thumb_Distal/128.0f,0,0);
 
+		
 		if (mDetailsPanel->isVisible())   // if details panel is visible, then update its contents
 		{
 
 			// Sequence
-			mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(DFDevice.LeftGlove().SequenceID));
-			mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(DFDevice.LeftGlove().BatteryStatus));
-			mDetailsPanel->setParamValue(2, Ogre::StringConverter::toString(DFDevice.LeftGlove().Accel_X));
-			mDetailsPanel->setParamValue(3, Ogre::StringConverter::toString(DFDevice.LeftGlove().Accel_Y));
-			mDetailsPanel->setParamValue(4, Ogre::StringConverter::toString(DFDevice.LeftGlove().Accel_Z));
-			mDetailsPanel->setParamValue(6, Ogre::StringConverter::toString(DFDevice.LeftGlove().Gyro_X));
-			mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(DFDevice.LeftGlove().Gyro_Y));
-			mDetailsPanel->setParamValue(8, Ogre::StringConverter::toString(DFDevice.LeftGlove().Gyro_Z));
-			mDetailsPanel->setParamValue(10, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Proximal));
-			mDetailsPanel->setParamValue(11, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Middle));
-			mDetailsPanel->setParamValue(12, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Distal));
+			mDetailsPanel->setParamValue(0, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Meta));
+			mDetailsPanel->setParamValue(1, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Proximal));
+			
+			mDetailsPanel->setParamValue(2, Ogre::StringConverter::toString(DFDevice.LeftGlove().Thumb_Distal));
 
-			mDetailsPanel->setParamValue(13, Ogre::StringConverter::toString(mRightHand.Index_Proximal->getOrientation()));
-			mDetailsPanel->setParamValue(14, Ogre::StringConverter::toString(mRightHand.Index_Middle->getOrientation()));
-			mDetailsPanel->setParamValue(15, Ogre::StringConverter::toString(mRightHand.Index_Distal->getOrientation()));
+			mDetailsPanel->setParamValue(3, Ogre::StringConverter::toString(DFDevice.LeftGlove().Index_Proximal));
+			mDetailsPanel->setParamValue(4, Ogre::StringConverter::toString(DFDevice.LeftGlove().Index_Middle));
+			mDetailsPanel->setParamValue(5, Ogre::StringConverter::toString(DFDevice.LeftGlove().Index_Distal));
 
-			mDetailsPanel->setParamValue(16, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Proximal));
-			mDetailsPanel->setParamValue(17, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Middle));
-			mDetailsPanel->setParamValue(18, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Distal));
+			mDetailsPanel->setParamValue(6, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Proximal));
+			mDetailsPanel->setParamValue(7, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Middle));
+			mDetailsPanel->setParamValue(8, Ogre::StringConverter::toString(DFDevice.LeftGlove().Middle_Distal));
 
-			mDetailsPanel->setParamValue(19, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Proximal));
-			mDetailsPanel->setParamValue(20, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Middle));
-			mDetailsPanel->setParamValue(21, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Distal));
+			mDetailsPanel->setParamValue(9, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Proximal));
+			mDetailsPanel->setParamValue(10, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Middle));
+			mDetailsPanel->setParamValue(11, Ogre::StringConverter::toString(DFDevice.LeftGlove().Ring_Distal));
 
-			mDetailsPanel->setParamValue(22, Ogre::StringConverter::toString(DFDevice.LeftGlove().Pinky_Proximal));
-			mDetailsPanel->setParamValue(23, Ogre::StringConverter::toString(DFDevice.LeftGlove().Pinky_Middle));
-			mDetailsPanel->setParamValue(24, Ogre::StringConverter::toString(somenumber++));
+			mDetailsPanel->setParamValue(12, Ogre::StringConverter::toString(DFDevice.LeftGlove().Pinky_Proximal));
+			mDetailsPanel->setParamValue(13, Ogre::StringConverter::toString(DFDevice.LeftGlove().Pinky_Middle));
+			mDetailsPanel->setParamValue(14, Ogre::StringConverter::toString(DFDevice.LeftGlove().Pinky_Distal));
 		}
 	}
 

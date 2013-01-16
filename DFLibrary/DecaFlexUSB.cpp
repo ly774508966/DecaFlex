@@ -123,8 +123,8 @@ bool DecaFlexUSB::GetUpdate()
 		{
 
 			// copy results
-			m_Update = *(DECAFLEX_RAWUpdate_EP1_t*)(m_pInterruptTransfer->getTransferBuffer().get());			
-
+			m_Update = *(DECAFLEX_RAWUpdate_EP1_t*)(m_pInterruptTransfer->getTransferBuffer().get());
+			
 			Result = true;
 		}
 
